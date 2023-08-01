@@ -4,7 +4,7 @@ import axios from "axios";
 
 function Profile() {
   const [profileData, setProfileData] = useState(null);
-  const { role, id } = useContext(AuthContext);
+  const { id } = useContext(AuthContext);
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
@@ -33,11 +33,18 @@ function Profile() {
   const handleSaveChanges = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/user/${id}`, profileData);
-      // setEditMode(false);
+      await fetch(`http://localhost:5000/api/user/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profileData),
+      });
+      alert("Updated Successfully")
     } catch (error) {
       console.error("Error saving changes:", error);
     }
+    setEditMode(false);
   };
 
   return (
@@ -74,23 +81,23 @@ function Profile() {
                 {profileData.phone}{" "}
               </div>
               <div className="text-xl  ml-7 lg:ml-12">
-                <span className="font-bold">Role : </span> {role}{" "}
+                <span className="font-bold">Role : </span> {profileData.role}{" "}
               </div>
-              {role === "staff" ? (
+              {profileData.role === "Staff" ? (
                 <div className="text-xl  ml-7 lg:ml-12">
                   <span className="font-bold">SID : </span> {profileData.SID}{" "}
                 </div>
               ) : (
                 ""
               )}
-              {role === "admin" ? (
+              {profileData.role === "Admin" ? (
                 <div className="text-xl  ml-7 lg:ml-12">
                   <span className="font-bold">AID : </span> {profileData.AID}{" "}
                 </div>
               ) : (
                 ""
               )}
-              {role === "student" ? (
+              {profileData.role === "Student" ? (
                 <>
                   <div className="text-xl  ml-7 lg:ml-12">
                     <span className="font-bold">SIC : </span> {profileData.SIC}{" "}
@@ -107,7 +114,7 @@ function Profile() {
               ) : (
                 ""
               )}
-              {role === "staff" ? (
+              {profileData.role === "Staff" ? (
                 <div className="text-xl  ml-7 lg:ml-12">
                   <span className="font-bold">Subject : </span>{" "}
                   {profileData.subject}
@@ -172,66 +179,89 @@ function Profile() {
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                SID
-              </label>
-              <input
-                type="text"
-                name="SID"
-                value={profileData.SID}
-                onChange={handleChange}
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                SIC
-              </label>
-              <input
-                type="text"
-                name="SIC"
-                value={profileData.SIC}
-                onChange={handleChange}
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Branch
-              </label>
-              <input
-                type="text"
-                name="branch"
-                value={profileData.branch}
-                onChange={handleChange}
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Section
-              </label>
-              <input
-                type="text"
-                name="section"
-                value={profileData.section}
-                onChange={handleChange}
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Subject
-              </label>
-              <input
-                type="text"
-                name="subject"
-                value={profileData.subject}
-                onChange={handleChange}
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-            </div>
+            {profileData.role === "Admin" && (
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  SID
+                </label>
+                <input
+                  type="text"
+                  name="AID"
+                  value={profileData.AID}
+                  onChange={handleChange}
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+            )}
+            {profileData.role === "Staff" && (
+              <>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    SID
+                  </label>
+                  <input
+                    type="text"
+                    name="SID"
+                    value={profileData.SID}
+                    onChange={handleChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={profileData.subject}
+                    onChange={handleChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+              </>
+            )}
+            {profileData.role === "Student" && (
+              <>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    SIC
+                  </label>
+                  <input
+                    type="text"
+                    name="SIC"
+                    value={profileData.SIC}
+                    onChange={handleChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Branch
+                  </label>
+                  <input
+                    type="text"
+                    name="branch"
+                    value={profileData.branch}
+                    onChange={handleChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Section
+                  </label>
+                  <input
+                    type="text"
+                    name="section"
+                    value={profileData.section}
+                    onChange={handleChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>{" "}
+              </>
+            )}
+
             <div className="text-center">
               <button
                 className="font-semibold px-5 py-2 bg-black text-white rounded-lg"

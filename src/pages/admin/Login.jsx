@@ -28,7 +28,7 @@ const AdminLogin = () => {
                   Email
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -43,7 +43,7 @@ const AdminLogin = () => {
                   Password
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

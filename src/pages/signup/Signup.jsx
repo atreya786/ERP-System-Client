@@ -30,7 +30,7 @@ const Signup = () => {
           branch,
           SIC,
           phone,
-          role: "student",
+          role: "Student",
         }),
       });
 

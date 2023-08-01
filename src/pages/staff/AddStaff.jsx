@@ -25,7 +25,7 @@ const AddStaffs = () => {
           subject,
           SID,
           phone,
-          role: "staff",
+          role: "Staff",
         }),
       });
 
@@ -117,7 +117,7 @@ const AddStaffs = () => {
                 <input
                   className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                   id="first_name"
-                  type="text"
+                  type="password"
                   placeholder="Your Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
