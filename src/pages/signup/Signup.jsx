@@ -11,7 +11,7 @@ const Signup = () => {
   const [SIC, setSIC] = useState("");
   const [phone, setPhone] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -31,6 +31,18 @@ const Signup = () => {
           SIC,
           phone,
           role: "Student",
+          dues: 0,
+          packageSal: 0,
+          sub1: 0,
+          sub2: 0,
+          sub3: 0,
+          sub4: 0,
+          sub5: 0,
+          fine: 0,
+          issueDate: Date.now(),
+          returnDate: Date.now(),
+          company: "null",
+          book: "null",
         }),
       });
 
@@ -43,7 +55,7 @@ const Signup = () => {
         setSIC("");
         setPhone("");
         alert("Signup successful");
-        navigate("/studentLogin")
+        navigate("/studentLogin");
       } else {
         alert("Failed to signup. Please try again.");
       }

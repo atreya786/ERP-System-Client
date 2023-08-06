@@ -28,6 +28,18 @@ const AddStudent = () => {
           SIC,
           phone,
           role: "Student",
+          dues: 0,
+          packageSal: 0,
+          sub1: 0,
+          sub2: 0,
+          sub3: 0,
+          sub4: 0,
+          sub5: 0,
+          fine: 0,
+          issueDate: Date.now(),
+          returnDate: Date.now(),
+          company: "null",
+          book: "null",
         }),
       });
 

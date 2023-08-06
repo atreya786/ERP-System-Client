@@ -13,6 +13,11 @@ import AddStudent from "./pages/student/AddStudent";
 import AddStaffs from "./pages/staff/AddStaff";
 import Staff from "./pages/staff/Staff";
 import Profile from "./pages/profile/Profile";
+import Account from "./pages/accounts/Accounts";
+import Library from "./pages/library/Library";
+import Attendance from "./pages/attendance/Attendance";
+import Index from "./pages/placement/Index";
+import Examination from "./pages/examination/Examination";
 
 function App() {
   const { token } = useContext(AuthContext);
@@ -29,6 +34,11 @@ function App() {
             <Route path="/addStudent" element={<AddStudent />} />
             <Route path="/addStaffs" element={<AddStaffs />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/attendance" element={<Attendance />} />
+            <Route path="/placement" element={<Index />} />
+            <Route path="/examination" element={<Examination />} />
           </>
         ) : (
           <>
