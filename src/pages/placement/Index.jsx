@@ -5,8 +5,8 @@ import AddJob from './AddJob'
 function Index() {
   return (
     <div>
-      <Placement/>
       <AddJob/>
+      <Placement/>
     </div>
   )
 }

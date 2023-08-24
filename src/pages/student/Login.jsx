@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-const StaffLogin = () => {
+const StudentLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { studentLogin } = useContext(AuthContext);
@@ -51,19 +51,19 @@ const StaffLogin = () => {
                 />
               </div>
               <button
-                className="w-full p-3 mt-4 bg-indigo-600 text-white rounded shadow"
+                className="w-full p-3 mt-4 bg-orange-600 text-white rounded shadow"
                 onClick={handleLogin}
               >
                 Login
               </button>
             </div>
             <div className="flex justify-between p-8 text-sm border-t border-gray-300 bg-gray-100">
-              <a href="/signup" className="font-medium text-indigo-500">
+              {/* <a href="/signup" className="font-medium text-indigo-500">
                 Create account
-              </a>
-              <a href="#" className="text-gray-600">
+              </a> */}
+              <div className="text-gray-600">
                 Forgot password?
-              </a>
+              </div>
             </div>
           </div>
         </div>
@@ -72,4 +72,4 @@ const StaffLogin = () => {
   );
 };
 
-export default StaffLogin;
+export default StudentLogin;

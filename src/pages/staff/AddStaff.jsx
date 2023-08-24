@@ -1,5 +1,8 @@
 // Signup.jsx
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const AddStaffs = () => {
   const [name, setName] = useState("");
@@ -8,10 +11,11 @@ const AddStaffs = () => {
   const [subject, setSubject] = useState("");
   const [SID, setSID] = useState("");
   const [phone, setPhone] = useState("");
+  const [salary, setSalary] = useState("");
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("http://localhost:5000/api/staffs", {
         method: "POST",
@@ -26,9 +30,10 @@ const AddStaffs = () => {
           SID,
           phone,
           role: "Staff",
+          salary,
         }),
       });
-
+  
       if (response.ok) {
         setName("");
         setEmail("");
@@ -36,19 +41,21 @@ const AddStaffs = () => {
         setSubject("");
         setSID("");
         setPhone("");
-        alert("Staff Added successful");
+        setSalary("")
+        toast.success("Staff Added successfully"); 
       } else {
-        alert("Failed to add staff. Please try again.");
+        toast.error("Failed to add staff. Please try again."); 
       }
     } catch (error) {
       console.error("Error during adding:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later."); 
     }
   };
+  
 
   return (
     <div className="w-full bg-grey-lightest mt-8 ">
-      <div className="container mx-auto py-8 ">
+      <div className="container mx-auto lg:py-8 py-14 ">
         <div className="w-5/6 lg:w-1/2 mx-auto bg-white rounded shadow-2xl border-2">
           <div className="py-4 px-8 text-black text-xl border-b border-grey-lighter">
             Add Staff
@@ -112,7 +119,7 @@ const AddStaffs = () => {
                   className="block text-grey-darker text-sm font-bold mb-2"
                   htmlFor="first_name"
                 >
-                  Demo Password
+                  Password
                 </label>
                 <input
                   className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -158,11 +165,27 @@ const AddStaffs = () => {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
+              <div className="w-1/2 mr-1">
+                <label
+                  className="block text-grey-darker text-sm font-bold mb-2"
+                  htmlFor="salary"
+                >
+                  Salary
+                </label>
+                <input
+                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                  id="first_namesalary"
+                  type="number"
+                  placeholder="Salary"
+                  value={salary}
+                  onChange={(e) => setSalary(e.target.value)}
+                />
+              </div>
             </div>
             <div className="flex items-center justify-between mt-8">
               <button
                 onClick={handleSignup}
-                className="bg-sky-600  hover:bg-sky-800 text-white font-bold py-2 px-4 rounded-lg "
+                className="bg-orange-600  hover:bg-orange-800 text-white font-bold py-2 px-4 rounded-lg "
                 type="submit"
               >
                 Add Staff

@@ -31,16 +31,11 @@ const Signup = () => {
           SIC,
           phone,
           role: "Student",
-          dues: 0,
+          dues: 150000,
           packageSal: 0,
-          sub1: 0,
-          sub2: 0,
-          sub3: 0,
-          sub4: 0,
-          sub5: 0,
           fine: 0,
-          issueDate: Date.now(),
-          returnDate: Date.now(),
+          issueDate: "null",
+          returnDate: "null",
           company: "null",
           book: "null",
         }),
@@ -202,7 +197,7 @@ const Signup = () => {
               </button>
               <p className="text-center my-4">
                 <a
-                  href="#"
+                  href="/login"
                   className="text-grey-dark text-sm no-underline hover:text-grey-darker"
                 >
                   I already have an account

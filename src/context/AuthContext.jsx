@@ -1,4 +1,6 @@
 import React, { createContext, useEffect, useState } from "react"; 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -8,21 +10,29 @@ export const AuthProvider = ({ children }) => {
   const token = localStorage.getItem("token") || "";
   const [role, setRole] = useState("");
   const [id, setId] = useState("");
+  const[name,setName]=useState("")
+  const[subject,setSubject]=useState("")
   useEffect(() => {
     if (token) {
       try {
         const decodedToken = jwt_decode(token);
         setRole(decodedToken.user.role);
         setId(decodedToken.user.id);
-        // console.log("Decoded token:", decodedToken);
-        // console.log("User role:", role);
+        setName(decodedToken.user.name);
+       
+        if(decodedToken.user.role==="Staff"){
+
+          setSubject(decodedToken.user.subject);
+        }
       } catch (error) {
         console.error("Error decoding token:", error.message);
       }
     } else {
       console.log("JWT token not found in local storage or cookies");
     }
-  }, []);
+  },[token]);
+
+
 
   const navigate = useNavigate();
   const adminLogin = async (email, password) => {
@@ -40,16 +50,16 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        alert("Login successful");
+        
+        toast.success("Login successful");
         localStorage.setItem("token", data.token);
         navigate("/home");
       } else {
-        alert("Invalid credentials. Please try again.");
+        toast.error("Invalid credentials. Please try again.");
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      alert("An error occurred. Please try again later.");
+      
+      toast.error("An error occurred. Please try again later.");
     }
   };
 
@@ -68,16 +78,15 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        alert("Login successful");
+        toast.success("Login successful");
         localStorage.setItem("token", data.token);
         navigate("/home");
       } else {
-        alert("Invalid credentials. Please try again.");
+        toast.error("Invalid credentials. Please try again.");
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.");
     }
   };
 
@@ -93,22 +102,22 @@ export const AuthProvider = ({ children }) => {
           body: JSON.stringify({ email, password }),
         }
       );
-
+  
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        alert("Login successful");
+        
+        toast.success("Login successful");
         localStorage.setItem("token", data.token);
         navigate("/home");
       } else {
-        alert("Invalid credentials. Please try again.");
+        toast.error("Invalid credentials. Please try again.");
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later."); 
     }
   };
-
+  
   const logout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
@@ -116,7 +125,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, adminLogin, studentLogin, staffLogin, logout, role,id }}
+      value={{ token, adminLogin, studentLogin, staffLogin, logout, role,id,name,subject }}
     >
       {children}
     </AuthContext.Provider>

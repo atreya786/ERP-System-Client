@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Chip } from "@material-tailwind/react";
 
 function Home() {
-  const { role, token } = useContext(AuthContext);
+  const { role, name } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const HandleProfile = () => {
@@ -33,14 +34,50 @@ function Home() {
   const HandleStudent = () => {
     navigate("/student");
   };
+  const handleStudentAttendance = () => {
+    navigate("/studentattendance");
+  };
+  const handleDms = () => {
+    navigate("/adddms");
+  };
+  function Icon() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="h-5 w-5"
+      >
+        <path
+          fillRule="evenodd"
+          d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+          clipRule="evenodd"
+        />
+      </svg>
+    );
+  }
 
   return (
-    <div>
-      <div className="text-3xl lg:mx-28 mx-4">
-        <span className="font-bold">|</span> {role} Dashboard
+    <div className="">
+      <div className="text-3xl lg:mx-28 lg:flex mx-4 py-2">
+        <Chip
+          className="lg:my-0 my-1  lg:mx-2"
+          value={name}
+          variant="ghost"
+          icon={<Icon />}
+        />
+        <Chip
+          variant="ghost"
+          color="green"
+          size="sm"
+          value="Online"
+          icon={
+            <span className="mx-auto mt-1 block h-2 w-2 rounded-full bg-green-900 content-['']" />
+          }
+        />
       </div>
-      <div className="lg:grid lg:grid-cols-3 lg:gap-5 lg:mx-28 my-4 mx-3 lg:my-5">
-        <div className="h-52 bg-green-500 lg:my-0 my-4">
+      <div className="lg:grid lg:grid-cols-3 lg:gap-5 lg:mx-28 my-4 mx-3 lg:py-4  ">
+        <div className="h-52 bg-green-600 lg:my-0 my-4">
           <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
             Profile
           </div>
@@ -56,23 +93,43 @@ function Home() {
             More info
           </div>
         </div>
-        <div className="h-52 bg-purple-600 lg:my-0 my-4">
-          <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
-            Attendance
+        {(role === "Admin" || role === "Staff") && (
+          <div className="h-52 bg-purple-600 lg:my-0 my-4">
+            <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
+              Attendance
+            </div>
+            <img
+              className="h-28  ml-32 lg:ml-36 my-1  mix-blend-darken"
+              src="https://www.clipartmax.com/png/middle/12-127125_image-attendance-icon-png.png"
+              alt="error"
+            />
+            <div
+              className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
+              onClick={HandleAttendance}
+            >
+              More info
+            </div>
           </div>
-          <img
-            className="h-28  ml-32 lg:ml-36 my-1  mix-blend-darken"
-            src="https://www.clipartmax.com/png/middle/12-127125_image-attendance-icon-png.png"
-            alt="error"
-          />
-          <div
-            className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
-            onClick={HandleAttendance}
-          >
-            More info
+        )}
+        {role === "Student" && (
+          <div className="h-52 bg-purple-600 lg:my-0 my-4">
+            <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
+              Attendance
+            </div>
+            <img
+              className="h-28  ml-32 lg:ml-36 my-1  mix-blend-darken"
+              src="https://www.clipartmax.com/png/middle/12-127125_image-attendance-icon-png.png"
+              alt="error"
+            />
+            <div
+              className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
+              onClick={handleStudentAttendance}
+            >
+              More info
+            </div>
           </div>
-        </div>
-        <div className="h-52 bg-yellow-500 lg:my-0 my-4">
+        )}
+        <div className="h-52 bg-blue-700 lg:my-0 my-4">
           <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
             Library
           </div>
@@ -88,7 +145,7 @@ function Home() {
             More info
           </div>
         </div>
-        <div className="h-52 bg-sky-500 lg:my-0 my-4">
+        <div className="h-52 bg-deep-purple-500 lg:my-0 my-4">
           <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
             Examination
           </div>
@@ -137,38 +194,61 @@ function Home() {
             More info
           </div>
         </div>
-        <div className="h-52 bg-amber-500 lg:my-0 my-4">
-          <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
-            Staffs
+
+        {role === "Admin" && (
+          <>
+            <div className="h-52 bg-amber-500 lg:my-0 my-4">
+              <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
+                Staffs
+              </div>
+              <img
+                className="h-28 ml-36 lg:ml-40 my-1 py-1 mix-blend-darken"
+                src="https://cdn-icons-png.flaticon.com/512/327/327729.png"
+                alt="error"
+              />
+              <div
+                className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
+                onClick={HandleStaff}
+              >
+                More info
+              </div>
+            </div>
+            <div className="h-52 bg-red-500 lg:my-0 my-4">
+              <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
+                Students
+              </div>
+              <img
+                className="h-28 ml-36 lg:ml-40 py-1 my-1  mix-blend-darken"
+                src="https://cdn-icons-png.flaticon.com/512/327/327729.png"
+                alt="error"
+              />
+              <div
+                className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
+                onClick={HandleStudent}
+              >
+                More info
+              </div>
+            </div>
+          </>
+        )}
+        {(role === "Admin" || role === "Staff") && (
+          <div className="h-52 bg-purple-800 lg:my-0 my-4">
+            <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
+              Dms
+            </div>
+            <img
+              className="h-28 ml-36 lg:ml-40 py-1 my-1  mix-blend-darken"
+              src="https://cdn-icons-png.flaticon.com/512/685/685887.png"
+              alt="error"
+            />
+            <div
+              className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
+              onClick={handleDms}
+            >
+              More info
+            </div>
           </div>
-          <img
-            className="h-28 ml-36 lg:ml-40 my-1 py-1 mix-blend-darken"
-            src="https://cdn-icons-png.flaticon.com/512/327/327729.png"
-            alt="error"
-          />
-          <div
-            className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
-            onClick={HandleStaff}
-          >
-            More info
-          </div>
-        </div>
-        <div className="h-52 bg-red-500 lg:my-0 my-4">
-          <div className="text-center text-3xl py-2 font-bold text-white border-b-2">
-            Students
-          </div>
-          <img
-            className="h-28 ml-36 lg:ml-40 py-1 my-1  mix-blend-darken"
-            src="https://cdn-icons-png.flaticon.com/512/327/327729.png"
-            alt="error"
-          />
-          <div
-            className="cursor-pointer  text-center py-1 bg-black text-white opacity-70"
-            onClick={HandleStudent}
-          >
-            More info
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

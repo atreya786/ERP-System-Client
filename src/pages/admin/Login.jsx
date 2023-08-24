@@ -51,11 +51,14 @@ const AdminLogin = () => {
                 />
               </div>
               <button
-                className="w-full p-3 mt-4 bg-indigo-600 text-white rounded shadow"
+                className="w-full p-3 mt-4 bg-orange-600 text-white rounded shadow"
                 onClick={handleLogin}
               >
                 Login
               </button>
+            </div>
+            <div className="flex justify-between p-8 text-sm border-t border-gray-300 bg-gray-100">
+              <div className="text-gray-600">Forgot password?</div>
             </div>
           </div>
         </div>

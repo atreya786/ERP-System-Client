@@ -1,96 +1,112 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Carousel, Typography, Button } from "@material-tailwind/react";
 
-const LandingPage = () => {
-
-  const navigate = useNavigate()
-  const admin = ()=>{
-    navigate("/adminLogin")
-  }
-  const staff = ()=>{
-    navigate("/staffLogin")
-  }
-  const student = ()=>{
-    navigate("/studentLogin")
-  }
+function LandingPage() {
   return (
-    <div>
-      <div
-        className="h-[36rem]"
-        style={{
-          backgroundImage:
-            "url(https://themes.iamabdus.com/royal/1.3/img/home/slider/slider_image_1.jpg)",
-        }}
-      >
-        <div className="bg-black lg:h-60 w-screen lg:w-[50rem] absolute lg:absolute top-[20rem] lg:top-[21rem] lg:rounded-r-lg opacity-80 text-white">
-          <div className="text-4xl py-2 text-center font-bold lg:py-1">
-            WELCOME TO ROYAL COLLEGE
+    <>
+      <Carousel>
+      <div className="relative h-[40rem] w-full">
+          <img
+            src="https://chithiraicollegeofnursing.com/img/home/home01.jpg"
+            alt="error"
+            className="h-[40rem] w-full object-cover"
+          />
+          <div className="absolute inset-0 grid h-[40rem] w-full items-center bg-black/75">
+            <div className="w-3/4 pl-12 md:w-2/4 md:pl-20 lg:pl-32">
+              <Typography
+                variant="h1"
+                color="orange"
+                className="mb-4 text-3xl md:text-4xl lg:text-6xl"
+              >
+                Building technology for human progress
+              </Typography>
+              <Typography
+                variant="lead"
+                color="white"
+                className="mb-12 opacity-80"
+              >
+                We are an engineering institute advancing science and technology education for students from all walks of life.
+              </Typography>
+              <div className="flex gap-2">
+                <Button size="lg" color="orange">
+                  Explore
+                </Button>
+                
+              </div>
+            </div>
           </div>
-          <div className="px-5 text-justify lg:my-3 lg:px-9 lg:text-xl">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            quis? Officiis dicta dolores suscipit nostrum numquam, velit earum,
-            perferendis, quo molestias tempora ut cupiditate voluptatibus
-            deleniti? Natus delectus similique numquam Lorem ipsum dolor, sit
-            amet consectetur adipisicing elit.
-          </div>
-
-          <button className="h-10 lg:my-0 my-4 bg-green-500  px-3 lg:px-4 text-xl font-bold rounded-lg hover:bg-green-600 ml-7 lg:ml-9">
-            LEARN MORE
-          </button>
         </div>
-      </div>
-
-      <div className="bg-zinc-900 ">
-        <div className=" lg:grid lg:grid-cols-3 lg:gap-10 px-3 py-4 lg:px-48 lg:py-20">
-          <div className=" py-2 lg:my-0 my-6 lg:py-2  bg-sky-500 rounded">
-            <div className="text-3xl font-bold my-1 text-white text-center">
-              ADMIN
+        <div className="relative h-[40rem] w-full">
+          <img
+            src="https://img.freepik.com/free-photo/young-happy-students-walking-while-talking-looking-aside_171337-13418.jpg"
+            alt="error"
+            className="h-[40rem] w-full object-cover"
+          />
+          <div className="absolute inset-0 grid h-[40rem] w-full place-items-center bg-black/75">
+            <div className="w-3/4 text-center md:w-2/4">
+              <Typography
+                variant="h1"
+                color="orange"
+                className="mb-4 text-3xl md:text-4xl lg:text-6xl"
+              >
+                You Can Learn Anything
+              </Typography>
+              <Typography
+                variant="lead"
+                color="white"
+                className="mb-12 opacity-80"
+              >
+                It is not so much for its beauty that the forest makes a claim
+                upon men&apos;s hearts, as for that subtle something, that
+                quality of air that emanation from old trees, that so
+                wonderfully changes and renews a weary spirit.
+              </Typography>
+              <div className="flex justify-center gap-2">
+                <Button size="lg" color="orange">
+                  Explore
+                </Button>
+                
+              </div>
             </div>
-            <hr />
-            <img
-              className="h-28 ml-32 my-1  mix-blend-darken"
-              src="https://www.pngfind.com/pngs/m/643-6438921_admin-comments-admin-icon-png-transparent-png.png"
-              alt="error"
-            />
-            <button onClick={admin} className="h-12 px-5 text-xl ml-[38%] font-semibold bg-sky-950 text-white rounded-lg py-1 hover:bg-sky-800">
-              Login
-            </button>
           </div>
-          <div className="py-2 lg:my-0 my-6 bg-sky-500 rounded">
-            <div className="text-3xl  font-bold my-1 text-white text-center">
-              STAFF
-            </div>
-            <hr />
-            <img
-              className="h-28 ml-32 my-1  mix-blend-darken"
-              src="https://www.nicepng.com/png/detail/40-409786_png-file-svg-male-circle-icon.png"
-              alt="error"
-            />
-            <button onClick={staff} className="h-12 px-5 text-xl ml-[38%] font-semibold bg-sky-950  hover:bg-sky-800 text-white rounded-lg py-1">
-              Login
-            </button>
-          </div>
-          <div className="py-2 lg:my-0 my-6  bg-sky-500 rounded">
-            <div className="text-3xl font-bold my-1 text-white text-center">
-              STUDENT
-            </div>
-            <hr />
-            <img
-              className="h-28 ml-32 my-1  mix-blend-darken"
-              src="https://flyclipart.com/thumb2/student-read-book-png-icon-free-download-369784.png"
-              alt="error"
-            />
-            <button onClick={student} className="h-12 px-5 text-xl ml-[38%] font-semibold bg-sky-950  hover:bg-sky-800 text-white rounded-lg py-1">
-              Login
-            </button>
-          </div>
-          
         </div>
-      </div>
-
-      <hr />
-
-      <div className="lg:grid lg:grid-cols-2 lg:gap-9 px-10 lg:px-28 py-5 lg:border-t-8 lg:py-20">
+        
+        <div className="relative h-[40rem] w-full">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+            alt="error"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 grid h-[40rem] w-full items-end bg-black/75">
+            <div className="w-3/4 pl-12 pb-12 md:w-2/4 md:pl-20 md:pb-20 lg:pl-32 lg:pb-32">
+              <Typography
+                variant="h1"
+                color="orange"
+                className="mb-4 text-3xl md:text-4xl lg:text-6xl"
+              >
+                The Beauty of Books
+              </Typography>
+              <Typography
+                variant="lead"
+                color="white"
+                className="mb-12 opacity-80"
+              >
+                It is not so much for its beauty that the forest makes a claim
+                upon men&apos;s hearts, as for that subtle something, that
+                quality of air that emanation from old trees, that so
+                wonderfully changes and renews a weary spirit.
+              </Typography>
+              <div className="flex gap-2">
+                <Button size="lg" color="orange">
+                  Explore
+                </Button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </Carousel>
+      <div>
+      <div className="lg:grid lg:grid-cols-2 lg:gap-9 px-10 lg:px-28 py-3 lg:border-t-8 lg:py-20">
         <div className="lg:flex lg:border-r-8">
           <img
             className=" lg:h-72 lg:w-80"
@@ -104,7 +120,7 @@ const LandingPage = () => {
             mattis sollicitudin lectus. Mauris porta fermentum volutpat.
             Praesent est sapien, tincidunt vel arcu vitae.
             <div>
-              <button className="bg-sky-600 hover:bg-sky-800 text-white my-5 w-72 lg:w-64 px-4 py-3 text-xl">
+              <button className="bg-orange-600 hover:bg-orange-800 text-white my-5 w-72 lg:w-64 px-4 py-3 text-xl">
                 LEARN MORE
               </button>
             </div>
@@ -141,8 +157,60 @@ const LandingPage = () => {
           </button>
         </div>
       </div>
-    </div>
+      <hr />
+      <div className="lg:mx-28 py-5 mx-9 lg:py-5">
+        <div className="text-center text-4xl font-semibold py-3 ">
+          Our training program
+        </div>
+        <div className="lg:grid lg:grid-cols-4 gap-4 py-5">
+          <div className="border shadow-slate-800 shadow-2xl lg:my-0 my-5">
+            <img
+            className="px-3 py-3 h-[12rem]"
+              src="https://webbocket.com/wp-content/uploads/2023/07/1_k0SazfSJ-tPSBbt2WDYIyw.jpg"
+              alt=""
+            />
+            <div className="text-center text-xl font-semibold">Full stack web development in MERN stack</div>
+            <button className="bg-orange-600 px-3 py-2 ml-24 rounded hover:bg-orange-800 lg:mx-24 my-3 text-white">
+              Read more
+            </button>
+          </div>
+          <div className="border shadow-slate-800 shadow-2xl lg:my-0 my-5">
+            <img
+            className="px-3 py-3 h-[12rem] w-[19.3rem]"
+              src="https://webbocket.com/wp-content/uploads/2023/07/1720.jpg"
+              alt=""
+            />
+            <div className="text-center text-xl font-semibold">Application development.</div>
+            <button className="bg-orange-600 px-3 py-2 ml-24 rounded hover:bg-orange-800 lg:mx-24 my-3 mt-10 text-white">
+              Read more
+            </button>
+          </div>
+          <div className="border shadow-slate-800 shadow-2xl lg:my-0 my-5">
+            <img
+            className="px-3 py-3 h-[12rem] w-[19.3rem]"
+              src="https://webbocket.com/wp-content/uploads/2023/07/data_science_using_python.jpg"
+              alt=""
+            />
+            <div className="text-center text-xl font-semibold">Data science using python</div>
+            <button className="bg-orange-600 px-3 py-2 ml-24 rounded hover:bg-orange-800 lg:mx-24 my-3 mt-10  text-white">
+              Read more
+            </button>
+          </div>
+          <div className="border shadow-slate-800 shadow-2xl lg:my-0 my-5">
+            <img
+            className="px-3 py-3 h-[12rem]"
+              src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_Data_Science.jpg"
+              alt=""
+            />
+            <div className="text-center text-xl font-semibold">C++ With DSA</div>
+            <button className="bg-orange-600 px-3 py-2 ml-24 rounded hover:bg-orange-800 lg:mx-24 my-3 mt-10 text-white">
+              Read more
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </>
   );
-};
-
+}
 export default LandingPage;

@@ -1,4 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Chip } from "@material-tailwind/react";
+
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -30,8 +34,29 @@ function Profile() {
     }));
   };
 
+  const validateName = (name) => {
+    const namePattern = /^[A-Za-z\s]+$/; // Only letters and spaces allowed
+    return namePattern.test(name);
+  };
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@gmail\.com$/; // Gmail format only
+    return emailPattern.test(email);
+  };
+
   const handleSaveChanges = async (e) => {
     e.preventDefault();
+
+    if (!validateName(profileData.name)) {
+      toast.error("Invalid name format. Please enter a valid name.");
+      return;
+    }
+
+    if (!validateEmail(profileData.email)) {
+      toast.error("Invalid email format. Please enter a valid Gmail address.");
+      return;
+    }
+
     try {
       await fetch(`http://localhost:5000/api/user/${id}`, {
         method: "PATCH",
@@ -40,17 +65,21 @@ function Profile() {
         },
         body: JSON.stringify(profileData),
       });
-      alert("Updated Successfully")
+      toast.success("Updated Successfully");
     } catch (error) {
       console.error("Error saving changes:", error);
+      toast.error("An error occurred. Changes were not saved.");
     }
     setEditMode(false);
   };
-
   return (
     <div>
       <div className="text-3xl lg:mx-52 mx-4 py-2  lg:py-2">
-        <span className="font-bold">| </span>Profile
+        <Chip
+          className="w-32 text-2xl text-black"
+          color="green"
+          value="Profile"
+        />
       </div>
       <hr />
       <div className="rounded-lg bg-green-500 lg:mx-52 mx-3 my-3 lg:my-4">
@@ -140,7 +169,7 @@ function Profile() {
       </div>
 
       {editMode && profileData && (
-        <div className="bg-gray-200 px-4 py-3">
+        <div className="bg-gray-200 px-2 lg:mx-0 mx-2 py-2 lg:px-4 lg:py-5 lg:w-[30rem] lg:ml-[35%] ">
           <h3 className="text-lg font-semibold mb-2">Edit Profile</h3>
           <form>
             <div className="mb-4">
@@ -182,7 +211,7 @@ function Profile() {
             {profileData.role === "Admin" && (
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
-                  SID
+                  AID
                 </label>
                 <input
                   type="text"
@@ -195,7 +224,7 @@ function Profile() {
             )}
             {profileData.role === "Staff" && (
               <>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     SID
                   </label>
@@ -206,8 +235,8 @@ function Profile() {
                     onChange={handleChange}
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
-                </div>
-                <div className="mb-4">
+                </div> */}
+                {/* <div className="mb-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     Subject
                   </label>
@@ -218,12 +247,12 @@ function Profile() {
                     onChange={handleChange}
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
-                </div>
+                </div> */}
               </>
             )}
             {profileData.role === "Student" && (
               <>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     SIC
                   </label>
@@ -258,7 +287,7 @@ function Profile() {
                     onChange={handleChange}
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
-                </div>{" "}
+                </div>{" "} */}
               </>
             )}
 

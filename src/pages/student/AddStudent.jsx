@@ -1,5 +1,7 @@
 // Signup.jsx
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddStudent = () => {
   const [name, setName] = useState("");
@@ -10,8 +12,57 @@ const AddStudent = () => {
   const [SIC, setSIC] = useState("");
   const [phone, setPhone] = useState("");
 
+  const validateEmail = (email) => {
+    const emailPattern = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
+    return emailPattern.test(email);
+  };
+
+  const validateSIC = (sic) => {
+    const sicPattern = /^[^\s]{8}$/; 
+    return sicPattern.test(sic);
+  };
+  const validatePhoneNumber = (phoneNumber) => {
+
+    const phonePattern = /^\d{10}$/; 
+    return phonePattern.test(phoneNumber);
+  };
+
+  const validatePassword = (password) => {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordPattern.test(password);
+  };
+  const validateName = (name) => {
+    const namePattern = /^[A-Za-z\s]+$/; 
+    return namePattern.test(name);
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    if (!validateEmail(email)) {
+      toast.error("Invalid email format. Please enter a valid email.");
+      return;
+    }
+
+    if (!validateSIC(SIC)) {
+      toast.error("SIC must be 8 characters long.");
+      return;
+    }
+    
+    if (!validateName(name)) {
+      toast.error("Invalid name format. Please enter a valid name.");
+      return;
+    }
+
+
+    if (!validatePassword(password)) {
+      toast.error("Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and be 8 characters long.");
+      return;
+    }
+    if (!validatePhoneNumber(phone)) {
+      toast.error("Invalid phone number format. Please enter a 10-digit phone number.");
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:5000/api/auth/signup", {
@@ -28,16 +79,10 @@ const AddStudent = () => {
           SIC,
           phone,
           role: "Student",
-          dues: 0,
+          dues: 150000,
           packageSal: 0,
-          sub1: 0,
-          sub2: 0,
-          sub3: 0,
-          sub4: 0,
-          sub5: 0,
-          fine: 0,
-          issueDate: Date.now(),
-          returnDate: Date.now(),
+          issueDate: "null",
+          returnDate: "null",
           company: "null",
           book: "null",
         }),
@@ -51,15 +96,16 @@ const AddStudent = () => {
         setBranch("");
         setSIC("");
         setPhone("");
-        alert("Student Added successful");
+        toast.success("Student Added successfully");
       } else {
-        alert("Failed to add student. Please try again.");
+        toast.error("Failed to add student. Please try again.");
       }
     } catch (error) {
       console.error("Error during adding:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.");
     }
   };
+  
 
   return (
     <div className="w-full bg-grey-lightest mt-8 ">
@@ -78,12 +124,13 @@ const AddStudent = () => {
                   Student Name
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker border-black"
                   id="first_name"
                   type="text"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </div>
               <div className="w-1/2 ml-1">
@@ -94,7 +141,7 @@ const AddStudent = () => {
                   SIC
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker border-black"
                   id="last_name"
                   type="text"
                   placeholder="Your Sic"
@@ -112,7 +159,7 @@ const AddStudent = () => {
                 Email Address
               </label>
               <input
-                className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                className="appearance-none border rounded w-full py-2 px-3 text-grey-darker border-black"
                 id="email"
                 type="email"
                 placeholder="Your email address"
@@ -126,12 +173,12 @@ const AddStudent = () => {
                   className="block text-grey-darker text-sm font-bold mb-2"
                   htmlFor="first_name"
                 >
-                  Demo Password
+                  Password
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker border-black"
                   id="first_name"
-                  type="number"
+                  type="password"
                   placeholder="Your Phone"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -145,7 +192,7 @@ const AddStudent = () => {
                   Branch
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker border-black"
                   id="last_name"
                   type="text"
                   placeholder="Your Section"
@@ -163,7 +210,7 @@ const AddStudent = () => {
                   Phone Number
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker border-black"
                   id="first_name"
                   type="number"
                   placeholder="Your Phone"
@@ -179,7 +226,7 @@ const AddStudent = () => {
                   Section
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+                  className="appearance-none border rounded w-full py-2 px-3 text-grey-darker border-black"
                   id="last_name"
                   type="text"
                   placeholder="Your Section"
@@ -191,7 +238,7 @@ const AddStudent = () => {
             <div className="flex items-center justify-between mt-8">
               <button
                 onClick={handleSignup}
-                className="bg-sky-600  hover:bg-sky-800 text-white font-bold py-2 px-4 rounded-lg "
+                className="bg-black  text-white font-bold py-2 px-4 rounded-lg "
                 type="submit"
               >
                 Add Student

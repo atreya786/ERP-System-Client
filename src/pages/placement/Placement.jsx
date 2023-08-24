@@ -1,29 +1,43 @@
 import React, { useState, useEffect, useContext } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../../context/AuthContext";
+import { Chip } from "@material-tailwind/react";
+
 import axios from "axios";
 
 function Placement() {
+  const { role } = useContext(AuthContext);
+
   const [data, setData] = useState([]);
   const [isEditing, setIsEditing] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleEditClick = (index) => {
     setIsEditing((prevIsEditing) => ({ ...prevIsEditing, [index]: true }));
   };
 
-  const handleSaveClick = async (SIC,index) => {
+  const handleSaveClick = async (ID, index) => {
     setIsEditing((prevIsEditing) => ({ ...prevIsEditing, [index]: false }));
-
     const updatedPlacement = data[index];
+
     try {
-      // Make a PATCH request to update the data
-      await axios.patch(`http://localhost:5000/api/placement/${SIC}`, {
+      // Update the state with the edited data
+      setData((prevData) => {
+        const updatedData = [...prevData];
+        updatedData[index] = { ...updatedPlacement };
+        return updatedData;
+      });
+
+      // Send the updated data to the backend
+      await axios.patch(`http://localhost:5000/api/placement/${ID}`, {
         packageSal: updatedPlacement.packageSal,
         company: updatedPlacement.company,
       });
-      alert("Updated Successfully");
-      fetchData();
+
+      toast.success("Updated Successfully");
     } catch (error) {
-      alert("Error updating data");
-      console.error("Error updating data:", error);
+      toast.error("Error updating data");
     }
   };
 
@@ -50,7 +64,7 @@ function Placement() {
       const response = await axios.get("http://localhost:5000/api/placement");
       setData(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      toast.error("Error fetching data:", error);
     }
   };
 
@@ -58,9 +72,28 @@ function Placement() {
     fetchData();
   }, []);
 
+  const filteredData = data.filter((el) =>
+    el.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div>
-      <div className="flex flex-col overflow-x-auto mx-3 lg:mx-28 border">
+      <div className="mx-3 lg:mx-28 py-2 lg:flex lg:justify-between">
+        <div className="text-3xl text-orange-500">
+        <Chip className="text-xl text-black" color="orange" value="placement list" />
+        </div>
+
+        <div>
+          <input
+            type="text"
+            placeholder="Search by Name"
+            className="px-3 py-2 lg:my-0 my-2 border-black border  rounded focus:outline-none focus:border-blue-500"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col h-[36rem] overflow-x-auto mx-3 lg:mx-28 border lg:h-[30rem] lg:overflow-y-auto">
         <div className="sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
@@ -90,7 +123,7 @@ function Placement() {
                 </thead>
                 <tbody>
                   {data &&
-                    data.map((el, index) => {
+                    filteredData.map((el, index) => {
                       return (
                         <tr
                           key={index + 1}
@@ -134,23 +167,27 @@ function Placement() {
                           </td>
                           <td className="font-semibold whitespace-nowrap px-6 py-4">
                             <div className="flex">
-                              <div>
-                                {isEditing[index] ? (
-                                  <button
-                                    onClick={() => handleSaveClick(el.SIC,index)}
-                                    className="px-3 bg-green-500 text-white py-2 rounded"
-                                  >
-                                    Save
-                                  </button>
-                                ) : (
-                                  <button
-                                    onClick={() => handleEditClick(index)}
-                                    className="px-3 bg-zinc-800 text-white py-2 rounded"
-                                  >
-                                    Add Data
-                                  </button>
-                                )}
-                              </div>
+                              {role === "Admin" && (
+                                <div>
+                                  {isEditing[index] ? (
+                                    <button
+                                      onClick={() =>
+                                        handleSaveClick(el._id, index)
+                                      }
+                                      className="px-3 bg-green-500 text-white py-2 rounded"
+                                    >
+                                      Save
+                                    </button>
+                                  ) : (
+                                    <button
+                                      onClick={() => handleEditClick(index)}
+                                      className="px-3 bg-black text-white py-2 rounded"
+                                    >
+                                      Add Data
+                                    </button>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </td>
                         </tr>
