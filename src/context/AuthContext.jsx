@@ -7,7 +7,7 @@ import jwt_decode from "jwt-decode";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const token = localStorage.getItem("token") || "";
+  const token = sessionStorage.getItem("token") || "";
   const [role, setRole] = useState("");
   const [id, setId] = useState("");
   const[name,setName]=useState("")
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
         
         toast.success("Login successful");
-        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", data.token);
         navigate("/home");
       } else {
         toast.error("Invalid credentials. Please try again.");
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         toast.success("Login successful");
-        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", data.token);
         navigate("/home");
       } else {
         toast.error("Invalid credentials. Please try again.");
@@ -107,7 +107,7 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
         
         toast.success("Login successful");
-        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", data.token);
         navigate("/home");
       } else {
         toast.error("Invalid credentials. Please try again.");
@@ -119,7 +119,7 @@ export const AuthProvider = ({ children }) => {
   };
   
   const logout = () => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     window.location.href = "/";
   };
 

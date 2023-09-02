@@ -57,9 +57,6 @@ const StaffLogin = () => {
                 Login
               </button>
             </div>
-            <div className="flex justify-between p-8 text-sm border-t border-gray-300 bg-gray-100">
-              <div className="text-gray-600">Forgot password?</div>
-            </div>
           </div>
         </div>
       </div>

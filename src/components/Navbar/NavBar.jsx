@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -8,10 +8,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
   Collapse,
   Drawer,
 } from "@material-tailwind/react";
@@ -22,27 +18,31 @@ import { Chip } from "@material-tailwind/react";
 
 function NavBar() {
   const [dmsdata, setDmsdata] = useState([]);
-
-  const [open, setOpen] = React.useState(false);
   const [openTop, setOpenTop] = React.useState(false);
   const openDrawerTop = () => setOpenTop(true);
   const closeDrawerTop = () => setOpenTop(false);
   const [openNav, setOpenNav] = React.useState(false);
-  const handleOpen = () => setOpen(!open);
   const navigate = useNavigate();
 
   const handleDashboard = () => {
     navigate("/home");
   };
-  const admin = () => {
+  const adminLogin = () => {
     navigate("/adminLogin");
   };
-  const staff = () => {
+  const staffLogin = () => {
     navigate("/staffLogin");
   };
-  const student = () => {
+  const studentLogin = () => {
     navigate("/studentLogin");
   };
+  const handleHome = () => {
+    navigate("/");
+  };
+  const handleContact = () => {
+    navigate("/contact");
+  };
+
   const { logout, token, role } = useContext(AuthContext);
   const handleLogout = () => {
     logout();
@@ -51,13 +51,14 @@ function NavBar() {
   const handleAbout = () => {
     navigate("/about");
   };
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
-    DmsData();
-  }, [dmsdata]);
+
+    token && DmsData();
+  }, [token]);
 
   const DmsData = async () => {
     try {
@@ -144,6 +145,20 @@ function NavBar() {
             <Button
               className="text-brown-800 rounded-full"
               color="orange"
+              onClick={handleHome}
+            >
+              HOME
+            </Button>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <Button
+              className="text-brown-800 rounded-full"
+              color="orange"
               onClick={handleAbout}
             >
               ABOUT
@@ -155,85 +170,65 @@ function NavBar() {
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <Button className="text-brown-800 rounded-full" color="orange">
+            <Button
+              className="text-brown-800 rounded-full"
+              color="orange"
+              onClick={handleContact}
+            >
               CONTACT
             </Button>
           </Typography>
         </>
       )}
       {!token && (
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          <Button
-            onClick={handleOpen}
-            variant="gradient"
-            className="rounded-full"
-            color="green"
+        <>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
           >
-            Log in
-          </Button>
-        </Typography>
+            <Button
+              onClick={adminLogin}
+              variant="gradient"
+              className="rounded-full"
+              color="red"
+            >
+              ADMIN
+            </Button>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <Button
+              onClick={staffLogin}
+              variant="gradient"
+              className="rounded-full"
+              color="green"
+            >
+              STAFF
+            </Button>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <Button
+              onClick={studentLogin}
+              variant="gradient"
+              className="rounded-full"
+              color="blue"
+            >
+              STUDENT
+            </Button>
+          </Typography>
+        </>
       )}
-      <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Log In !!</DialogHeader>
-        <DialogBody divider>
-          <div className=" lg:grid lg:grid-cols-3 gap-5">
-            <div className=" py-2 lg:my-0 my-6 lg:py-2  bg-light-blue-500 rounded">
-              <img
-                className="h-20  ml-32 lg:ml-14 my-1  mix-blend-darken"
-                src="https://www.pngfind.com/pngs/m/643-6438921_admin-comments-admin-icon-png-transparent-png.png"
-                alt="error"
-              />
-              <button
-                className=" px-5 text-lg  mx-28 lg:mx-10 font-semibold bg-orange-800  hover:bg-orange-900 text-white rounded-lg py-1 hover:bg-sky-800"
-                onClick={admin}
-              >
-                ADMIN
-              </button>
-            </div>
-            <div className=" py-2 lg:my-0 my-6 lg:py-2  bg-light-blue-500 rounded">
-              <img
-                className="h-20 ml-28 lg:ml-12 my-1  mix-blend-darken"
-                src="https://www.nicepng.com/png/detail/40-409786_png-file-svg-male-circle-icon.png"
-                alt="error"
-              />
-              <button
-                className=" px-5 text-lg mx-28 lg:mx-10 font-semibold bg-orange-800  hover:bg-orange-900 text-white rounded-lg py-1 hover:bg-sky-800"
-                onClick={staff}
-              >
-                STAFF
-              </button>
-            </div>
-            <div className=" py-2 lg:my-0 my-6 lg:py-2  bg-light-blue-500 rounded">
-              <img
-                className="h-20 ml-32 lg:ml-14 my-1  mix-blend-darken"
-                src="https://flyclipart.com/thumb2/student-read-book-png-icon-free-download-369784.png"
-                alt="error"
-              />
-              <button
-                className=" px-5 text-lg mx-24 lg:mx-7 font-semibold bg-orange-800 hover:bg-orange-900 text-white rounded-lg py-1 hover:bg-sky-800"
-                onClick={student}
-              >
-                STUDENT
-              </button>
-            </div>
-          </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
 
       {token && (
         <Typography

@@ -53,35 +53,41 @@ function About() {
       <div className=" mx-8 lg:mx-20 my-6">
         <Accordion open={alwaysOpen}>
           <AccordionHeader onClick={handleAlwaysOpen}>
-            What is Material Tailwind?
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad,
+            cumque.
           </AccordionHeader>
           <AccordionBody>
-            We&apos;re not always in the position that we want to be at.
-            We&apos;re constantly growing. We&apos;re constantly making
-            mistakes. We&apos;re constantly trying to express ourselves and
-            actualize our dreams.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
+            inventore pariatur sint labore? Necessitatibus at sint sunt. Beatae,
+            soluta. Dolores, nesciunt. Cum, aliquid? Unde, dolorum cumque?
+            Repudiandae ex laborum dolorum beatae! Quis esse beatae nobis
+            pariatur, exercitationem cum excepturi rerum.
           </AccordionBody>
         </Accordion>
         <Accordion open={open === 1}>
           <AccordionHeader onClick={() => handleOpen(1)}>
-            How to use Material Tailwind?
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad,
+            cumque.
           </AccordionHeader>
           <AccordionBody>
-            We&apos;re not always in the position that we want to be at.
-            We&apos;re constantly growing. We&apos;re constantly making
-            mistakes. We&apos;re constantly trying to express ourselves and
-            actualize our dreams.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
+            inventore pariatur sint labore? Necessitatibus at sint sunt. Beatae,
+            soluta. Dolores, nesciunt. Cum, aliquid? Unde, dolorum cumque?
+            Repudiandae ex laborum dolorum beatae! Quis esse beatae nobis
+            pariatur, exercitationem cum excepturi rerum.
           </AccordionBody>
         </Accordion>
         <Accordion open={open === 2}>
           <AccordionHeader onClick={() => handleOpen(2)}>
-            What can I do with Material Tailwind?
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad,
+            cumque.
           </AccordionHeader>
           <AccordionBody>
-            We&apos;re not always in the position that we want to be at.
-            We&apos;re constantly growing. We&apos;re constantly making
-            mistakes. We&apos;re constantly trying to express ourselves and
-            actualize our dreams.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
+            inventore pariatur sint labore? Necessitatibus at sint sunt. Beatae,
+            soluta. Dolores, nesciunt. Cum, aliquid? Unde, dolorum cumque?
+            Repudiandae ex laborum dolorum beatae! Quis esse beatae nobis
+            pariatur, exercitationem cum excepturi rerum.
           </AccordionBody>
         </Accordion>
       </div>

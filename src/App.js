@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminLogin from "./pages/admin/Login";
-// import Signup from "./pages/signup/Signup";
+import Signup from "./pages/signup/Signup";
 import StaffLogin from "./pages/staff/Login";
 import StudentLogin from "./pages/student/Login";
 import { AuthContext } from "./context/AuthContext";
@@ -24,9 +24,10 @@ import Footer from "./components/Footer/Footer";
 import StudentAttendance from "./pages/student_attendance/StudentAttendance";
 import Adddms from "./pages/dms/Adddms";
 import About from "./pages/about/About";
+import Contact from "./pages/contact/Contact";
 
 function App() {
-  const { token, role } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   return (
     <>
@@ -35,19 +36,15 @@ function App() {
         {token ? (
           <>
             <Route path="/home" element={<Home />} />
-
             <Route path="/student" element={<Student />} />
             <Route path="/staff" element={<Staff />} />
             <Route path="/addStudent" element={<AddStudent />} />
             <Route path="/addStaffs" element={<AddStaffs />} />
             <Route path="/adddms" element={<Adddms />} />
-
             <Route path="/profile" element={<Profile />} />
             <Route path="/account" element={<Account />} />
             <Route path="/library" element={<Library />} />
-
             <Route path="/attendance" element={<Attendance />} />
-
             <Route path="/placement" element={<Index />} />
             <Route path="/examination" element={<Examination />} />
             <Route path="/studentattendance" element={<StudentAttendance />} />
@@ -59,7 +56,8 @@ function App() {
             <Route path="/staffLogin" element={<StaffLogin />} />
             <Route path="/studentLogin" element={<StudentLogin />} />
             <Route path="/about" element={<About />} />
-            {/* <Route path="/signup" element={<Signup />} /> */}
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/contact" element={<Contact />} />
           </>
         )}
       </Routes>

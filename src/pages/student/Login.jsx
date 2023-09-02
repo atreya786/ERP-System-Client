@@ -58,12 +58,10 @@ const StudentLogin = () => {
               </button>
             </div>
             <div className="flex justify-between p-8 text-sm border-t border-gray-300 bg-gray-100">
-              {/* <a href="/signup" className="font-medium text-indigo-500">
-                Create account
-              </a> */}
-              <div className="text-gray-600">
-                Forgot password?
-              </div>
+              <a href="/signup" className="font-medium text-indigo-500">
+                Create Account
+              </a>
+             
             </div>
           </div>
         </div>

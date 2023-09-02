@@ -197,7 +197,7 @@ const Signup = () => {
               </button>
               <p className="text-center my-4">
                 <a
-                  href="/login"
+                  href="/studentLogin"
                   className="text-grey-dark text-sm no-underline hover:text-grey-darker"
                 >
                   I already have an account
